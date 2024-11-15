@@ -1,0 +1,97 @@
+
+
+<form [formGroup]="userForm" class="mb-3">
+  <div class="row">
+    <div class="form-group col-md-6">
+      <label for="nome">Nome</label>
+      <input
+        id="nome"
+        type="text"
+        class="form-control is-invalid"
+        [class.is-invalid]="userForm.get('nome')?.errors && userForm.get('nome')?.touched"
+        formControlName="nome"/>
+      <div
+        *ngIf="userForm.get('nome')?.hasError('required')"
+        class="invalid-feedback">
+        Campo obrigátorio
+      </div>
+      <div
+        *ngIf="userForm.get('nome')?.hasError('maxlength')"
+        class="invalid-feedback">
+        Maxímo de 50 caracteres
+      </div>
+    </div>
+
+
+    <div class="form-group col-md-3">
+      <label for="idade">Idade</label>
+      <input
+        id="idade"
+        type="number"
+        class="form-control"
+        formControlName="idade"
+        [class.is-invalid]="userForm.get('idade')?.errors && userForm.get('idade')?.touched"
+        formControlName="idade"/>
+      <div
+        *ngIf="userForm.get('idade')?.hasError('required')"
+        class="invalid-feedback">
+        Campo obrigátorio
+      </div>
+      <div
+        *ngIf="userForm.get('idade')?.hasError('max')"
+        class="invalid-feedback">
+        Idade maxima 250 anos
+      </div>
+      <div
+      *ngIf="userForm.get('idade')?.hasError('min')"
+      class="invalid-feedback">
+      Idade minima 12 anos
+    </div>
+    </div>
+  </div>
+  <button [disabled]="!userForm.valid" (click)="enviarForm()" class="btn btn-success mt-3">Incluir</button>
+</form>
+
+<div class="row">
+  <app-user-card
+    (userInfoEmitter)="infoUserSelecionado($event)"
+    *ngFor="let user of users"
+    [user]="user"
+    class="col-md-3 mb-3">
+  </app-user-card>
+</div>
+
+<div *ngIf="userSelecionado" class="mt-3 border col-md p-3">
+  <h2>Usuário selecionado</h2>
+  <p>Nome: {{ userSelecionado?.nome }}</p>
+  <p>Idade: {{ userSelecionado?.idade }} </p>
+</div>
+
+
+<p> </p>
+<p> -</p>
+<p> </p>
+<p> -</p>
+<p> </p>
+<p> -</p>
+<p> </p>
+<p> -</p>
+<p> </p>
+<p> -</p>
+<p> </p>
+<p> -</p>
+<ul class="list-button">
+  <li class="mb-2" *ngFor="let user of users">
+    <button [routerLink]="'/users/' + user" class="btn btn-primary">Path Parameter {{ user }}</button>
+    -
+    <button
+      [routerLink]="'/users/details'"
+      [queryParams]="{
+        username: user
+      }"
+      class="btn btn-success"
+    >
+      Query Parameter {{ user }}
+    </button>
+  </li>
+</ul>
