@@ -1,4 +1,59 @@
 
+<div class="row justify-content-center">
+  <div class="col-md-4">
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Digite o username"
+        aria-label="Digite o username"
+        [(ngModel)]="username"
+      />
+      <button (click)="pesquisar()" class="btn btn-success" type="button">Pesquisar</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="userGit" class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card text-center">
+        <img
+          [src]="userGit?.avatar_url"
+          alt="Imagem do perfil"
+          class="card-image-top m-1 rounded">
+        <div class="card-body">
+          <h5 class="card-title">{{ userGit?.name }}</h5>
+          <p class="card-text">{{ userGit?.login }}</p>
+          <div class="text-center row">
+            <div class="col-md">
+              <p class="m-0"><b>Seguidores</b></p>
+              <p class="card-text mb-3">{{ userGit?.followers }}</p>
+            </div>
+            <div class="col-md">
+              <p class="m-0"><b>Seguindo</b></p>
+              <p class="card-text mb-3">{{ userGit?.following }}</p>
+            </div>
+          </div>
+          <a
+            class="btn btn-primary"
+            [href]="userGit?.html_url"
+            target="_blank" >Visitar perfil</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<p>-</p>
+<p></p><p>-</p>
+<p></p><p>-</p>
+<p></p><p>-</p>
+<p></p>
+<p>-</p>
+<p></p>
 <div *ngIf="user" class="mt-3 border col-md p-3">
   <h2>Usuário selecionado</h2>
   <p>Nome: {{ user.nome }}</p>
